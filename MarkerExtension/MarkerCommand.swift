@@ -89,7 +89,7 @@ let pattern =
 """
 
 /*
-(?xi)               flags to allow spacing in the pattern
+(?xi)               flags to allow spacing and case insensitive matching in the pattern
 ^                   match only at beginning of string
 \\s*                allow some leading whitespace
 //                  match only comments, not documentation comments
@@ -101,4 +101,4 @@ fixme|todo|mark     case-insensitive matching as per options
 | \\s+ )            OR some whitespace
  */
 
-let regex = try! NSRegularExpression(pattern: pattern, options: [.caseInsensitive])
+let regex = try! NSRegularExpression(pattern: pattern)
