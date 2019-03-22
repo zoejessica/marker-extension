@@ -11,24 +11,45 @@ import XcodeKit
 
 class MarkerTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    let markerCommand = MarkerCommand()
+    
+    func testNoOps() {
+        let tests = ["// TODO: This", "// FIXME: Something else", "// MARK: Not this", "// MARK:- Not this either"]
+        let expected: [String?] = [nil, nil, nil, nil]
+        XCTAssertEqual(tests.map(markerCommand.formattingMarks), expected)
     }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testMissingColons() {
+        let tests = ["//TODO This", "//FIXME Something else", "//MARK Not this", "//MARK Not this either"]
+        let expected: [String?] = ["// TODO: This", "// FIXME: Something else", "// MARK: Not this", "// MARK: Not this either"]
+        XCTAssertEqual(tests.map(markerCommand.formattingMarks), expected)
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testCapitalization() {
+        let tests = ["//toDo This", "//fixme Something else", "//mark Not this", "//mark: Not this either"]
+        let expected: [String?] = ["// TODO: This", "// FIXME: Something else", "// MARK: Not this", "// MARK: Not this either"]
+        XCTAssertEqual(tests.map(markerCommand.formattingMarks), expected)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testIgnoreWordPrefixes() {
+        let tests = ["//toDoThis", "//fixmeSomething else", "//marked Not this", "//marked: Not this either"]
+        let expected: [String?] = [nil, nil, nil, nil]
+        XCTAssertEqual(tests.map(markerCommand.formattingMarks), expected)
+    }
+    
+    func testNormalizeSpacing() {
+        let tests = ["//TODO      :             This", "//MARK    :-     This", "//fixme  : good grief"]
+        let expected: [String?] = ["// TODO:             This", "// MARK:-     This", "// FIXME: good grief"]
+        XCTAssertEqual(tests.map(markerCommand.formattingMarks), expected)
+    }
+    
+    func testIgnoreRandomCode() {
+        let tests = ["func somethingFancy() { ",
+                     "var markOne: String",
+                     "protocol Mark : FancyProtocol",
+                     "struct FixMe {"]
+        let expected: [String?] = Array(repeating: nil, count: tests.count)
+        XCTAssertEqual(tests.map(markerCommand.formattingMarks), expected)
     }
 
 }

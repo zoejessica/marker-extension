@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED00123B2245550100335F3D /* MarkerCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED66813F223C75CC00E10E0D /* MarkerCommand.swift */; };
 		ED03CD91223EC98D00A1DCFD /* MarkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED03CD90223EC98D00A1DCFD /* MarkerTests.swift */; };
 		ED03CD99223EC9AD00A1DCFD /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED03CD98223EC9AD00A1DCFD /* XcodeKit.framework */; };
 		ED668125223C75AF00E10E0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED668124223C75AF00E10E0D /* AppDelegate.swift */; };
@@ -291,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED03CD91223EC98D00A1DCFD /* MarkerTests.swift in Sources */,
+				ED00123B2245550100335F3D /* MarkerCommand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
