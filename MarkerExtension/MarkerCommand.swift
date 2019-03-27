@@ -80,18 +80,18 @@ public class MarkerCommand: NSObject, XCSourceEditorCommand {
     
     
 let pattern =
-"""
+#"""
 (?xi)
 ^
-\\s*
+\s*
 (?<completemark>
 //
-\\s*
+\s*
 (?<mark>
 fixme|todo|mark)
-( \\s* (?<colon>:) | \\s+ )
+( \s* (?<colon>:) | \s+ )
 )
-"""
+"""#
     
 /*
  (?xi)               flags to allow spacing in the pattern
